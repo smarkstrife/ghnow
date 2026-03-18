@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.*
+
+# Test coverage
+coverage/
+
+# Build artifacts
+dist/
+
+# Exported data files (user-generated)
+*.csv
+!package.json
+!package-lock.json
+!test/fixtures/*.html
+
+# ghnow user config (created by `ghnow email setup`)
+.ghnow/

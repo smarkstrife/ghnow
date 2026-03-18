@@ -1,0 +1,37 @@
+{
+  "name": "ghnow",
+  "version": "1.0.0",
+  "description": "Browse GitHub trending repositories and developers from your terminal",
+  "type": "module",
+  "bin": {
+    "ghnow": "./bin/ghnow.js"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "github",
+    "trending",
+    "cli",
+    "terminal",
+    "developer-tools"
+  ],
+  "author": "Shikhar Srivastava",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "cheerio": "^1.2.0",
+    "cli-table3": "^0.6.5",
+    "commander": "^14.0.3",
+    "marked": "^15.0.12",
+    "marked-terminal": "^7.3.0",
+    "ora": "^9.3.0"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.0"
+  }
+}
