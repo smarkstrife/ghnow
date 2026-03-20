@@ -28,6 +28,7 @@ export function getConfig() {
         content: ['repos', 'devs'], // "repos", "devs"
         language: null,
         frequency: 'daily',
+        hour: 8,
         enabled: false,
         lastSent: null
       }

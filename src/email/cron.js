@@ -12,8 +12,9 @@ const CRON_COMMENT = 'ghnow-digest';
 /**
  * Add or update the system crontab for ghnow email digest.
  * @param {string} frequency "daily", "weekly", or "monthly"
+ * @param {number} hour Hour to run the cron job (0-23)
  */
-export function setupCron(frequency) {
+export function setupCron(frequency, hour = 8) {
   return new Promise((resolve, reject) => {
     crontab.load((err, tab) => {
       if (err) return reject(err);
@@ -24,11 +25,11 @@ export function setupCron(frequency) {
       // 2. Determine cron expression
       let expression;
       if (frequency === 'daily') {
-        expression = '0 8 * * *'; // 8:00 AM every day
+        expression = `0 ${hour} * * *`;
       } else if (frequency === 'weekly') {
-        expression = '0 8 * * 1'; // 8:00 AM every Monday
+        expression = `0 ${hour} * * 1`; // every Monday
       } else if (frequency === 'monthly') {
-        expression = '0 8 1 * *'; // 8:00 AM 1st of every month
+        expression = `0 ${hour} 1 * *`; // 1st of every month
       } else {
         return reject(new Error('Invalid frequency: ' + frequency));
       }

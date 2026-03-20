@@ -50,11 +50,22 @@ export async function emailSetupCommand() {
     const frequency = await select({
       message: 'Frequency:',
       choices: [
-        { name: 'Daily (8:00 AM)', value: 'daily' },
-        { name: 'Weekly (Monday 8:00 AM)', value: 'weekly' },
-        { name: 'Monthly (1st of month 8:00 AM)', value: 'monthly' },
+        { name: 'Daily', value: 'daily' },
+        { name: 'Weekly (Every Monday)', value: 'weekly' },
+        { name: 'Monthly (1st of the month)', value: 'monthly' },
       ],
     });
+
+    const hourInput = await input({
+      message: 'At what hour should the digest be sent? (0-23):',
+      default: '8',
+      validate: (val) => {
+        const num = parseInt(val, 10);
+        if (isNaN(num) || num < 0 || num > 23) return 'Please enter a valid hour between 0 and 23.';
+        return true;
+      }
+    });
+    const hour = parseInt(hourInput, 10);
 
     // Save configuration
     const newConfig = {
@@ -65,6 +76,7 @@ export async function emailSetupCommand() {
       content,
       language: language.trim() === '' ? null : language.trim(),
       frequency,
+      hour,
       enabled: true,
     };
 
@@ -77,7 +89,7 @@ export async function emailSetupCommand() {
         console.log(chalk.yellow('\n⚠ Note: Automatic cron scheduling is not supported on Windows.'));
         console.log(chalk.yellow(`  Please set up Task Scheduler to run: node bin/ghnow.js email send-digest`));
       } else {
-        const expression = await setupCron(frequency);
+        const expression = await setupCron(frequency, hour);
         console.log(chalk.green(`✔ Cron job created: runs on '${expression}' schedule`));
       }
     } catch (err) {
@@ -132,6 +144,11 @@ export async function emailStatusCommand() {
     return;
   }
 
+  const displayHour = emailConfig.hour !== undefined ? emailConfig.hour : 8;
+  const ampm = displayHour >= 12 ? 'PM' : 'AM';
+  const hour12 = displayHour % 12 || 12;
+  const timeStr = `${hour12}:00 ${ampm}`;
+
   console.log(`Provider:     ${chalk.green(emailConfig.provider.toUpperCase())}`);
   if (emailConfig.provider === 'smtp') {
     console.log(`SMTP Host:    ${emailConfig.smtp.host}`);
@@ -139,7 +156,7 @@ export async function emailStatusCommand() {
   console.log(`Recipient:    ${emailConfig.recipient}`);
   console.log(`Content:      ${emailConfig.content.join(' + ')}`);
   console.log(`Language:     ${emailConfig.language || 'All'}`);
-  console.log(`Frequency:    ${emailConfig.frequency.charAt(0).toUpperCase() + emailConfig.frequency.slice(1)}`);
+  console.log(`Schedule:     ${emailConfig.frequency.charAt(0).toUpperCase() + emailConfig.frequency.slice(1)} at ${timeStr}`);
   console.log(`Last sent:    ${emailConfig.lastSent ? new Date(emailConfig.lastSent).toLocaleString() : 'Never'}`);
   console.log(`Cron active:  ${chalk.green('✔ Yes')}`);
   console.log();
