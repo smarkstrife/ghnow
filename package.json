@@ -1,6 +1,6 @@
 {
   "name": "ghnow",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Browse GitHub trending repositories and developers from your terminal",
   "type": "module",
   "bin": {

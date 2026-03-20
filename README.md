@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org)
-[![Version](https://img.shields.io/badge/version-1.0.0-orange.svg)](package.json)
+[![Version](https://img.shields.io/badge/version-1.1.0-orange.svg)](package.json)
 
 <p align="center">
   <img src="assets/ghnow.png" alt="ghnow demo" width="600">

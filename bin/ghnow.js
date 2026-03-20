@@ -11,7 +11,7 @@ const program = new Command();
 program
   .name('ghnow')
   .description('Browse GitHub trending repositories and developers from your terminal')
-  .version('1.0.0');
+  .version('1.1.0');
 
 // --- repos command (also the default) ---
 const repos = program
