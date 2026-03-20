@@ -36,10 +36,49 @@ program
   .option('-e, --export <file>', 'Export results to file (.json, .csv, .md)')
   .action((opts) => devsCommand(opts));
 
+import {
+  emailSetupCommand,
+  emailTestCommand,
+  emailStatusCommand,
+  emailDisableCommand,
+  emailSendDigestCommand
+} from '../src/commands/email.js';
+
+// --- (Existing readme command definition here) ---
 program
   .command('readme <repo>')
   .description('View a repository README in the terminal (format: owner/repo)')
   .option('-e, --export <file>', 'Save README as a markdown file instead of displaying')
   .action((repo, opts) => readmeCommand(repo, opts));
+
+// --- email commands ---
+const email = program
+  .command('email')
+  .description('Manage email digest of trending repos/devs');
+
+email
+  .command('setup')
+  .description('Interactive setup for email digest')
+  .action(() => emailSetupCommand());
+
+email
+  .command('test')
+  .description('Send a test digest email now')
+  .action(() => emailTestCommand());
+
+email
+  .command('status')
+  .description('Show current email digest configuration')
+  .action(() => emailStatusCommand());
+
+email
+  .command('disable')
+  .description('Stop the email digest and remove cron job')
+  .action(() => emailDisableCommand());
+
+// Hidden internal command (used by cron)
+email
+  .command('send-digest', { hidden: true })
+  .action(() => emailSendDigestCommand());
 
 program.parse();

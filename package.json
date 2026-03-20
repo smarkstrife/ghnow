@@ -23,13 +23,17 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "@inquirer/prompts": "^8.3.2",
     "chalk": "^5.6.2",
     "cheerio": "^1.2.0",
     "cli-table3": "^0.6.5",
     "commander": "^14.0.3",
+    "crontab": "^1.4.2",
     "marked": "^15.0.12",
     "marked-terminal": "^7.3.0",
-    "ora": "^9.3.0"
+    "nodemailer": "^8.0.3",
+    "ora": "^9.3.0",
+    "resend": "^6.9.4"
   },
   "devDependencies": {
     "vitest": "^4.1.0"

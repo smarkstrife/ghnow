@@ -28,9 +28,15 @@ dist/
 
 # Exported data files (user-generated)
 *.csv
+*.json
 !package.json
 !package-lock.json
-!test/fixtures/*.html
+
+# Ignore exported READMEs, but preserve project documentation
+*.md
+!README.md
+!COMMANDS.md
+!EMAIL_GUIDE.md
 
 # ghnow user config (created by `ghnow email setup`)
 .ghnow/
